@@ -25,6 +25,7 @@ archSinSignosPuntuacion = re.sub(r'[^\w\s]','',archivoEnMinusculas)
 # - Separar y contar las ocurrencias de las palabras (Evaluar si conviene utilizar un “dict” o la clase “collections.Counter” de python)
 listaPalabras = archSinSignosPuntuacion.split()
 
+# Implementarlo de distinta forma. (RESOLVER)
 def listaPalabrasDicFrec(listaPalabras):
     frecuenciaPalab = [listaPalabras.count(p) for p in listaPalabras]
     return dict(list(zip(listaPalabras,frecuenciaPalab)))
@@ -34,6 +35,7 @@ dictArch = listaPalabrasDicFrec(listaPalabras)
 
 # - Ordenar de modo descendente las palabras por cantidad de ocurrencias
 def sortDescDictionary(dictArch):
+    # sorted() ver como resolver con el sorted
     aux = [(dictArch[key], key) for key in dictArch]
     aux.sort()
     aux.reverse() #Descendente
@@ -46,8 +48,10 @@ dictOrderDesc = sortDescDictionary(dictArch)
 #   • ¿Cuántas palabras tiene el texto?
 cantidadPalabras = len(re.findall(r'\w+', archivoEnMinusculas))
 #print("Cantidad de palabras que contiene el texto: " + str(cantidadPalabras))
+# ¿Contar las palabras distintas!
 
 #   • ¿Cuáles son las 5 palabras más usadas?
+
 i = 0
 while i < 5:
     print (dictOrderDesc[i])
