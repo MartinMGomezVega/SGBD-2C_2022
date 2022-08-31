@@ -6,6 +6,7 @@
 # - Ordenar de modo descendente las palabras por cantidad de ocurrencias
 # Responder
 #   • ¿Cuántas palabras tiene el texto?
+
 #   • ¿Cuáles son las 5 palabras m´as usadas?
 
 from hashlib import new
@@ -60,3 +61,9 @@ def cincoPalabrasMasUsadas():
         i+=1  
 
 cincoPalabrasMasUsadas()
+#   • ¿Cuáles son las 5 palabras más usadas?
+
+import procesamientoArchivo 
+
+dictKingLear = procesamientoArchivo.volcarTextoEnDiccionario('Practica_1/king_lear.txt')
+procesamientoArchivo.palabrasConMayorAparicion(dictKingLear)

@@ -17,6 +17,7 @@ def functionStringFormat():
                " "+
                "{match}".format(match = match.group(1)))
 
+def procesarString():
     stringExample = "martin,gomez,41702705,miguel,vega,50720714"
     splitedStr = stringExample.split(",")
     
@@ -26,3 +27,6 @@ def functionStringFormat():
             print(word)
 
 functionStringFormat() 
+
+
+procesarString()
