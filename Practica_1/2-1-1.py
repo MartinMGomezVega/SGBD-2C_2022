@@ -1,10 +1,9 @@
-#Escribir un programa que reconozca los s´ımbolos de los n´umeros romanos: recibe un string S por teclado e imprime
-#“TRUE” si todos los caracteres de S corresponden a s´ımbolos de n´umeros romanos o “FALSE” en caso contrario. Por
-#ejemplo:
-#input: “XL” → output: “TRUE”
-#input “#CienciaDeDatos” → output: “FALSE”
-import re
+# Escribir un programa que reconozca los símbolos de los números romanos: recibe un string S por teclado e imprime
+# “TRUE” si todos los caracteres de S corresponden a símbolos de núeros romanos o “FALSE” en caso contrario. Por ejemplo:
+#     input: “XL” → output: “TRUE”
+#     input “#CienciaDeDatos” → output: “FALSE”
 
+import re
 
 def numerosRomanos():
     stringExample = "XL,II,#CienciaDeDatos,hola,40955681,XXI,V"
@@ -14,5 +13,6 @@ def numerosRomanos():
     for word in strArray:
       match =  bool(re.search(reGex, word))
       print ("#input: " + word + " -> output: " + str(match))
+        
         
 numerosRomanos()

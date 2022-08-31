@@ -1,4 +1,4 @@
-#Escribir un programa que elimine los signos de puntuaci´on de un string.
+#Escribir un programa que elimine los signos de puntuación de un string.
 
 import re
 
