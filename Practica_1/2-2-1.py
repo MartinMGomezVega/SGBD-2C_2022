@@ -52,7 +52,11 @@ cantidadPalabras = len(re.findall(r'\w+', archivoEnMinusculas))
 
 #   • ¿Cuáles son las 5 palabras más usadas?
 
-i = 0
-while i < 5:
-    print (dictOrderDesc[i])
-    i+=1  
+def cincoPalabrasMasUsadas():    
+    i = 0
+    while i < 10:
+        print (dictOrderDesc[i])
+        diezPalabras = dictOrderDesc[i]
+        i+=1  
+
+cincoPalabrasMasUsadas()
