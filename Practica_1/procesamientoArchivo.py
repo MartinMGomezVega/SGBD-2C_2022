@@ -1,11 +1,10 @@
 import re
+import operator
 
-def procesarTextoEnDiccionario(nombreArchivo):
-  archivo = open(nombreArchivo)
-  archivoEnMinusculas = (archivo.read()).lower()
-  archSinSignosPuntuacion = re.sub(r'[^\w\s]','',archivoEnMinusculas)
-  dict = guardarPalabrasEnDict(archSinSignosPuntuacion.split())
+def volcarTextoEnDiccionario(nombreArchivo):
+  dict = guardarPalabrasEnDict(procesarTexto(nombreArchivo))
   return dict
+
 
 def guardarPalabrasEnDict(listaPalabras):
     wordDict = dict()
@@ -15,3 +14,17 @@ def guardarPalabrasEnDict(listaPalabras):
         else:
             wordDict[palabra] = 1
     return wordDict
+
+
+def procesarTexto(nombreArchivo):
+  archivo = open(nombreArchivo)
+  archivoEnMinusculas = (archivo.read()).lower()
+  return re.sub(r'[^\w\s]','',archivoEnMinusculas).split()
+
+
+def palabrasConMayorAparicion(diccionario):
+  dictOrderDesc = sorted(diccionario.items(), key=operator.itemgetter(1), reverse=True)
+  print("Cantidad de palabras que contiene el texto: " + str(len(dictOrderDesc)))
+
+  for i in range(0,5):
+    print (dictOrderDesc[i])

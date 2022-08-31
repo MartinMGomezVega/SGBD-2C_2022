@@ -8,7 +8,7 @@
 import re
 
 
-def functionStringFormat():
+def procesarString():
     stringExample = "martin,gomez,41702705,miguel,vega,50720714"
     splitedStr = stringExample.split(",")
     
@@ -17,4 +17,5 @@ def functionStringFormat():
         if (bool(match)):
             print(word)
        
-functionStringFormat() 
+       
+procesarString()
