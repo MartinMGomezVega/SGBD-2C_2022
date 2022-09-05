@@ -25,6 +25,18 @@ def procesarTexto(nombreArchivo):
 def palabrasConMayorAparicion(diccionario):
   dictOrderDesc = sorted(diccionario.items(), key=operator.itemgetter(1), reverse=True)
   print("Cantidad de palabras que contiene el texto: " + str(len(dictOrderDesc)))
-
   for i in range(0,5):
     print (dictOrderDesc[i])
+    
+
+def ObtenerPalabrasConMayorOcurrencia(diccionario):
+  dictResult = {}
+  dictOrderDesc = sorted(diccionario.items(), key=operator.itemgetter(1), reverse=True)
+  i = 0
+  for (key, value) in dictOrderDesc:
+    if(i < 10):
+      i += 1
+      dictResult[key] = value
+        
+    
+  return dictResult
