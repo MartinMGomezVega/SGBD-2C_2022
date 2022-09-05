@@ -1,8 +1,11 @@
 # Realizar las siguientes visualizaciones:
 # Un histograma de las 10 palabras representativas con mayor cantidad de ocurrencias en “king lear.txt” 
-# (Ver seccion ”Bar Charts”, p´ag. 75 y 97))
+# (Ver seccion ”Bar Charts”, p´ag. 75 y 97)) https://www.geeksforgeeks.org/bar-plot-in-matplotlib/
+
 # Una nube de palabras de las 50 palabras m´as representativas con mayor cantidad de ocurrencias en “king lear.txt”
-# (Ver cap`ıtulo 20 del libro, p´ag. 334-336)
+# (Ver cap`ıtulo 20 del libro, p´ag. 334-336) https://www.datacamp.com/tutorial/wordcloud-python
+
+
 # El objetivo de estas visualizaciones es intentar determinar algunas caracterısticas esenciales (ej.: el tema, los personajes,
 # las acciones) del texto en base a la cantidad de ocurrencias de las palabras.
 # Obs.: la noci´on de “palabra representativa” es subjetiva por lo tanto queda a criterio personal. Al menos habr´ıa que filtrar
@@ -68,9 +71,3 @@ plot.ylabel('Frecuencia')
 plot.xlabel('Edades')
 plot.title('Histograma de las 10 palabras mas usadas en “king lear.txt” ')
 plot.show()
-
-# Un histograma de las 10 palabras representativas con mayor cantidad de ocurrencias en “king lear.txt” (Ver sección 'Bar Charts', pág. 75 y 97))
-# Una nube de palabras de las 50 palabras más representativas con mayor cantidad de ocurrencias en “king lear.txt” (Ver capítulo 20 del libro, pág. 334-336)
-# El objetivo de estas visualizaciones es intentar determinar algunas características esenciales (ej.: el tema, los personajes,
-# las acciones) del texto en base a la cantidad de ocurrencias de las palabras.
-
