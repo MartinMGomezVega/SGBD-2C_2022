@@ -8,11 +8,5 @@ import procesamientoArchivo
 dictKingLear = procesamientoArchivo.volcarTextoEnDiccionario('Practica_1/king_lear.txt')
 palabrasProhibidas = procesamientoArchivo.procesarTexto('Practica_1/palabras_prohibidas.txt')
 
-def eliminarPalabrasProhibidas():
-    for palProhib in palabrasProhibidas:
-        if (palProhib in dictKingLear):
-            dictKingLear.pop(palProhib)
-
-
-eliminarPalabrasProhibidas()
+procesamientoArchivo.eliminarPalabrasProhibidas(palabrasProhibidas, dictKingLear)
 procesamientoArchivo.palabrasConMayorAparicion(dictKingLear)

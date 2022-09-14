@@ -15,5 +15,8 @@ import histograma
 import nubePalabras
 
 dictKingLear = procesamientoArchivo.volcarTextoEnDiccionario('Practica_1/king_lear.txt')
+palabrasProhibidas = procesamientoArchivo.procesarTexto('Practica_1/palabras_prohibidas.txt')
+procesamientoArchivo.eliminarPalabrasProhibidas(palabrasProhibidas, dictKingLear)
+
 histograma.CrearHistogramaPalabrasCantidades(dictKingLear)
 nubePalabras.CrearNubeDePalabras('Practica_1/king_lear.txt')

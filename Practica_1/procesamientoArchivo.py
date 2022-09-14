@@ -27,6 +27,11 @@ def palabrasConMayorAparicion(diccionario):
   print("Cantidad de palabras que contiene el texto: " + str(len(dictOrderDesc)))
   for i in range(0,5):
     print (dictOrderDesc[i])
+
+def eliminarPalabrasProhibidas(palabrasProhibidas, archivo):
+    for palProhib in palabrasProhibidas:
+        if (palProhib in archivo):
+            archivo.pop(palProhib)
     
 
 def ObtenerPalabrasConMayorOcurrencia(diccionario):
