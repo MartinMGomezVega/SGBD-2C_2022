@@ -23,4 +23,5 @@ WHERE country.continent IN
         FROM country 
         GROUP BY country.continent 
         ORDER BY sum(country.gnp) DESC 
+        LIMIT 3
     );

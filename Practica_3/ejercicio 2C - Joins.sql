@@ -34,6 +34,7 @@ WHERE continent = (
 SELECT country.name AS Nombre_Pais, country.population AS Poblacion, sum(city.population) AS Poblacion_de_la_ciudad, (sum(city.population) * 100 / country.population) as Porcentaje 
 FROM country 
 INNER JOIN city ON city.countrycode = country.code
-GROUP BY country.name, country.population;
+GROUP BY country.name, country.population 
+ORDER BY Porcentaje DESC;
 
 
