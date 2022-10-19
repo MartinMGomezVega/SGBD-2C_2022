@@ -12,7 +12,6 @@ CREATE TABLE stats(
     pop_urbana integer NOT NULL,
     PRIMARY KEY(countrycode)
 );
-CREATE TABLE
 
 INSERT INTO stats (countrycode, pop_urbana) (SELECT country.code, sum(city.population) FROM country INNER JOIN city on country.code = city.countrycode GROUP BY country.code);
 
