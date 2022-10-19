@@ -23,7 +23,7 @@
 --          De todos los registros encontrados, se devuelven los primeros 100.
 
 -- PUNTO 2
-EXPLAIN select * from sitio s1, sitio s2 where s1.countrycode = s2.countrycode and s1.entidad like 'a%' and s2.entidad like 'b%' limit 100;
+EXPLAIN ANALYZE select * from sitio s1, sitio s2 where s1.countrycode = s2.countrycode and s1.entidad like 'a%' and s2.entidad like 'b%' limit 100;
 ------------------------------------------------------------------------------
  Limit  (cost=0.00..4.13 rows=100 width=44)
    ->  Nested Loop  (cost=0.00..271.25 rows=6564 width=44)
@@ -34,3 +34,5 @@ EXPLAIN select * from sitio s1, sitio s2 where s1.countrycode = s2.countrycode a
                ->  Seq Scan on sitio s2  (cost=0.00..38.54 rows=101 width=22)
                      Filter: (entidad ~~ 'b%'::text)
 
+-- PUNTO 3
+CREATE INDEX IndexCountryCode_sitio ON sitio (countryCode);
