@@ -36,3 +36,14 @@ EXPLAIN ANALYZE select * from sitio s1, sitio s2 where s1.countrycode = s2.count
 
 -- PUNTO 3
 CREATE INDEX IndexCountryCode_sitio ON sitio (countryCode);
+
+--PUNTO 4
+EXPLAIN ANALYZE select * from sitio s1, sitio s2 where s1.countrycode = s2.countrycode and s1.entidad like 'a%' and s2.entidad like 'b%' limit 100;
+------------------------------------------------------------------------------
+ Limit  (cost=0.28..3.26 rows=100 width=44)
+   ->  Nested Loop  (cost=0.28..195.97 rows=6564 width=44)
+         ->  Seq Scan on sitio s2  (cost=0.00..38.54 rows=101 width=22)
+               Filter: (entidad ~~ 'b%'::text)
+         ->  Index Scan using indice_countrycode on sitio s1  (cost=0.28..1.55 rows=1 width=22)
+               Index Cond: (countrycode = s2.countrycode)
+               Filter: (entidad ~~ 'a%'::text)
