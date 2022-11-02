@@ -3,33 +3,14 @@ import psycopg2
 import psycopg2.extras
 from pandas import Series, DataFrame
 import pandas as pd
+import funciones
 
-# Conectaxion a la base de datos
-def conexion():
-    try:
-        conexionBD = psycopg2.connect(database = 'world', user = 'postgres', host = 'localhost', password = '1327')
-        print (conexionBD)
-        cursor = conexionBD.cursor(cursor_factory=psycopg2.extras.DictCursor)
-        return cursor, conexionBD
-    
-    except (Exception, psycopg2.DatabaseError) as error :
-        print ("Error al conectarse con la base de datos", error)
-
-    # Cerar la conexion al final
-    finally:
-        # Cerrar la conexion
-        if(conexionBD):
-            cursor.close()
-            conexionBD.close()
-            print("Conexion Cerrada")
 
 # Leer CSV y devolver el dataframe
 def ObtenerDataframe():
-    df = pd.read_csv('top-1m.csv')
+    df = pd.read_csv('./Practica_3/top-1m.csv')
     df1 = DataFrame(df, columns=['nroDeOrden', 'dominio', 'entidad', 'tipo_entidad','pais'])
     return df1
-
-
 
 # 1. Leer los campos “code2” y “code” de la tabla country y generar un diccionario de la forma: d[code2] = code
 def ejercicioUno(cursor, conexionBD):
@@ -45,11 +26,34 @@ def ejercicioUno(cursor, conexionBD):
         
     cursor.close() # Cerrar consulta
     
-    # print("Diccionario: ")
-
-def ejdos():
+    print("code2 | code")
+    for k,v in diccionario:
+        print( str(k), " | ", str(v))
+    
+# Para cada lınea de la archivo ”top-1m.csv” separar el nro. de orden y el dominio
+def ejercicioDos():
     df1 = ObtenerDataframe()
-    # Split dobre el dominio
+    df1['nroDeOrden'] = df1['nroDeOrden'].str.split('.').str[0]
+    df1['dominio'] = df1['dominio'].str.split('.').str[2]
+    
+    print (df1)
+    
+def ejercicioCuatro():
+    df1 = ObtenerDataframe()
+    _, conexionBD = funciones.conexion()
+    cursor1 = conexionBD.cursor()
+    for _, fila in df1.iterrows():
+        if(str(fila['codigo']) != 'nan'):
+            postgres_insert_query = "INSERT INTO sitio (id, entidad,tipo_entidad,pais,countrycode) VALUES(%s,%s,%s,%s,%s)"
+            record_to_insert = (fila['nroDeOrden'], fila['entidad'], fila['tipo_entidad'], fila['pais'], fila['codigo'])
+            cursor1.execute(postgres_insert_query, record_to_insert)
+            conexionBD.commit()
+    cursor1.close()
 
-curs, conex = conexion()
-ejercicioUno(curs, conex)
+    print("¡Datos cargados con exito!")
+
+cursor, conexionBD = funciones.conexion()
+ejercicioUno(cursor, conexionBD)
+# ejercicioDos()
+# ejercicioTres()
+ejercicioCuatro()
