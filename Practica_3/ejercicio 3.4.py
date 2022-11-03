@@ -17,13 +17,14 @@ def ActualizarCSV(diccionario, df1):
     df1.loc[df1['tipo_entidad'].isnull(), 'codigo'] = 'USA'
     df1.loc[df1['tipo_entidad'] == 'uk', 'codigo'] = 'GBR'
 
+    # Dataframe listo para ser cargado en la tabla sitio
     for key in diccionario:
         df1.loc[df1['tipo_entidad'] == key, 'codigo'] = diccionario.get(key)
   
-    # Actualizado para cargar la tabla sitio de postgresql
+    # CSV actualizado
     df1.to_csv(r'./Practica_3/top-1m-actualizado.csv', index = False, header=False)
 
-# 1. Leer los campos “code2” y “code” de la tabla country y generar un diccionario de la forma: d[code2] = code
+# Leer los campos “code2” y “code” de la tabla country y generar un diccionario de la forma: d[code2] = code
 def lecturaDeCampos(cursor, conexionBD):
     # Ejecutar la Query para obtener el code2 y code de la tabla country
     cursor.execute("SELECT code2, code FROM country")
