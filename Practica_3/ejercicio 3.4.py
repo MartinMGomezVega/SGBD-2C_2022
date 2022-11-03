@@ -4,42 +4,49 @@ import psycopg2.extras
 from pandas import Series, DataFrame
 import pandas as pd
 import funciones
-
+import json, os, boto3
 
 # Leer CSV y devolver el dataframe
-def ObtenerDataframe():
-    df = pd.read_csv('./Practica_3/top-1m.csv')
+def ObtenerDataframe(dic):
+    df = pd.read_csv('./Practica_3/top-1m.csv',header=None, sep=',', names=['nroDeOrden', 'dominio', 'entidad', 'tipo_entidad','pais'])
     df1 = DataFrame(df, columns=['nroDeOrden', 'dominio', 'entidad', 'tipo_entidad','pais'])
+    ActualizarCSV(dic, df1)
     return df1
 
+def ActualizarCSV(diccionario, df1):
+    df1.loc[df1['tipo_entidad'].isnull(), 'codigo'] = 'USA'
+    df1.loc[df1['tipo_entidad'] == 'uk', 'codigo'] = 'GBR'
+
+    for key in diccionario:
+        df1.loc[df1['tipo_entidad'] == key, 'codigo'] = diccionario.get(key)
+  
+    # Actualizado para cargar la tabla sitio de postgresql
+    df1.to_csv(r'./Practica_3/top-1m-actualizado.csv', index = False, header=False)
+
 # 1. Leer los campos “code2” y “code” de la tabla country y generar un diccionario de la forma: d[code2] = code
-def ejercicioUno(cursor, conexionBD):
+def lecturaDeCampos(cursor, conexionBD):
     # Ejecutar la Query para obtener el code2 y code de la tabla country
     cursor.execute("SELECT code2, code FROM country")
     
     # Diccionario:
-    d = {}
+    dic = {}
     # Obtener todas las filas del resultado de la consulta anterior y devolver una lista de tuplas 
     diccionario = cursor.fetchall()
     for row in diccionario:
-        d[row[0].lower()] = row[1]
+        dic[row[0].lower()] = row[1]
         
     cursor.close() # Cerrar consulta
     
     print("code2 | code")
     for k,v in diccionario:
         print( str(k), " | ", str(v))
+        
+    return dic
     
 # Para cada lınea de la archivo ”top-1m.csv” separar el nro. de orden y el dominio
-def ejercicioDos():
-    df1 = ObtenerDataframe()
-    df1['nroDeOrden'] = df1['nroDeOrden'].str.split('.').str[0]
-    df1['dominio'] = df1['dominio'].str.split('.').str[2]
-    
-    print (df1)
-    
-def ejercicioCuatro():
-    df1 = ObtenerDataframe()
+# Carga de los registros en la tabla Sitio de PostgreSQL
+def cargarRegistros(dic):
+    df1 = ObtenerDataframe(dic)
     _, conexionBD = funciones.conexion()
     cursor1 = conexionBD.cursor()
     for _, fila in df1.iterrows():
@@ -53,7 +60,14 @@ def ejercicioCuatro():
     print("¡Datos cargados con exito!")
 
 cursor, conexionBD = funciones.conexion()
-ejercicioUno(cursor, conexionBD)
-# ejercicioDos()
-# ejercicioTres()
-ejercicioCuatro()
+dic = lecturaDeCampos(cursor, conexionBD)
+cargarRegistros(dic)
+
+
+
+# QUERYS:
+# SELECT count(*) FROM sitio
+
+# SELECT * FROM sitio where countrycode != 'USA';
+
+# delete from sitio
