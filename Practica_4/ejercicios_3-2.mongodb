@@ -1,6 +1,6 @@
-Ejercicio 2
+// Ejercicio 2
 
-1. En base al campo “source”, determinar la cantidad de usuarios que hay por cada canal.
+// 1. En base al campo “source”, determinar la cantidad de usuarios que hay por cada canal.
 
 db.tweets.mapReduce(function() { 
   emit(this.source, 1); 
@@ -9,7 +9,7 @@ db.tweets.mapReduce(function() {
   }, {out:"final"} ).find()
 
 
-2. Determinar la cantidad de tweets por cada lenguaje
+// 2. Determinar la cantidad de tweets por cada lenguaje
 db.tweets.mapReduce(function() { 
   emit(this.lang,1); 
 },function(key, values) {
@@ -18,5 +18,5 @@ db.tweets.mapReduce(function() {
 
 
 
-3. Clasificar los textos de los tweets en corto (< 10 palabras), mediano (>= 10, < 20 palabras) y largo (>= 20 palabras). Devolver la cantidad de tweets en cada una de las clases. Referencia: https://stackoverflow.com/questions/
-3559883/javascript-split-regex-question
+// 3. Clasificar los textos de los tweets en corto (< 10 palabras), mediano (>= 10, < 20 palabras) y largo (>= 20 palabras). Devolver la cantidad de tweets en cada una de las clases. Referencia: https://stackoverflow.com/questions/
+// 3559883/javascript-split-regex-question

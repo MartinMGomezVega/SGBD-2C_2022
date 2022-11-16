@@ -5,10 +5,11 @@
 // db.tweets.distinct( "lang" )
 
 // 3. Seleccionar el id, el nombre, la descripcion y la cantidad de followers de aquellos usuarios que tengan mas de 100000 followers
-// db.tweets.find( { followers_count: { $gt: 30 } } );
+// db.tweets.find({user: {$elemMatch: {followers_count: {$gt: 30 }}}});
+db.tweets.find({"user.followers_count": {$gt: 100000 }},{_id:1, "user.name":1, "user.description":1});
 
-// 4. Seleccionar el id, el nombre y la cantidad de followers de los 10 usuarios con mas followers ordenado de manera descendente
-// db.tweets.find(( {}, {name:1}, {followers_count:1}).sort({followers_count:1}));
+// // 4. Seleccionar el id, el nombre y la cantidad de followers de los 10 usuarios con mas followers ordenado de manera descendente
+db.tweets.find(( {}, {name:1}, {followers_count:1}).sort({followers_count:1}));
 // db.tweets.find({},{user:{$elemMatch :{name:1}}})
 
 // db.tweets.find({user.name:'Rosa maria urbina'})
