@@ -2,19 +2,15 @@
 
 // 1. En base al campo “source”, determinar la cantidad de usuarios que hay por cada canal.
 
-db.tweets.mapReduce(function() { 
-  emit(this.source, 1); 
-}, function(key, values) { 
-  return Array.sum(values)
-  }, {out:"final"} ).find()
+db.tweets.mapReduce(function() {emit(this.source, 1); }, function(key, values) { return Array.sum(values)}, {out:"final"} )
 
 
 // 2. Determinar la cantidad de tweets por cada lenguaje
-db.tweets.mapReduce(function() { 
-  emit(this.lang,1); 
-},function(key, values) {
-  return Array.sum(values)
-  }, {out:"final"}).find()
+// db.tweets.mapReduce(function() { 
+//   emit(this.lang,1); 
+// },function(key, values) {
+//   return Array.sum(values)
+//   }, {out:"final"}).find()
 
 
 
