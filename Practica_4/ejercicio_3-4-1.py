@@ -12,9 +12,7 @@ def conectMongoDB():
     MONGO_HOST="localhost"
     MONGO_PUERTO="27017"
     MONGO_TIEMPO_FUERA=1000
-
     MONGO_URI="mongodb://"+MONGO_HOST+":"+MONGO_PUERTO+"/"
-
     MONGO_BASEDATOS="test"
     MONGO_COLECCION="tweets"
 
