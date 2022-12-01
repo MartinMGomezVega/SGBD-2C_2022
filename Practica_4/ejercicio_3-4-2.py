@@ -1,3 +1,6 @@
+# En base al punto anterior, realizar un Mapa Choropleth que refleje por cada paıs la cantidad total de tweets vinculados
+# a usuarios de ese paıs
+
 import matplotlib.pyplot as plt
 from geopandas import GeoDataFrame
 import pymongo as mongo
