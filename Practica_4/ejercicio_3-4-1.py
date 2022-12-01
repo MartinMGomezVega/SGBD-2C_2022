@@ -1,38 +1,89 @@
-# Determinar el origen de los usuarios basandose en: el campo “user.location” y la base de datos “world” de la pr´actica 3.
-# Agregar un campo nuevo en cada “document” que explicite el pa´ıs de origen del usuario. Una idea ser´ıa hacer chequeos
-# incrementales que se ejecuten secuencialmente, por ejemplo:
-# Si el campo “user.location” contiene un nombre de pa´ıs, considero ese como pa´ıs del usuario
-# Los usuarios de EEUU muchas veces escriben su ubicaci´on de forma “Ciudad,Estado” (ej.: “Washington, DC”).
-# En ese caso hay que matchear el estado y si es v´alido hay que colocar “us” como pa´ıs
-# etc.
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
-import pymongo
+import matplotlib.pyplot as plt
+from psycopg2 import Error
+import psycopg2
+from geopandas import GeoSeries, GeoDataFrame
+import pymongo as mongo
 
-def conectMongoDB():
-    MONGO_HOST="localhost"
-    MONGO_PUERTO="27017"
-    MONGO_TIEMPO_FUERA=1000
-    MONGO_URI="mongodb://"+MONGO_HOST+":"+MONGO_PUERTO+"/"
-    MONGO_BASEDATOS="test"
-    MONGO_COLECCION="tweets"
+#Creacion del mapa vacio
+world = GeoDataFrame.from_file('Practica_4/ne_10m_admin_0_countries.shp')
 
-    try:
-        cliente=pymongo.MongoClient(MONGO_URI,serverSelectionTimeoutMS=MONGO_TIEMPO_FUERA)
-        baseDatos=cliente[MONGO_BASEDATOS]
-        coleccion=baseDatos[MONGO_COLECCION]
-        for documento in coleccion.find("user.").limit(3):
-            print(documento["id"])
-        #cliente.server_info()
-        #print("Coneccion a mongo exitosa")
-        cliente.close()
-    except pymongo.errors.ServerSelectionTimeoutError as errorTiempo:
-        print("Tiempo exedido "+errorTiempo)
-    except pymongo.errors.ConnectionFailure as errorConexion:
-        print("Fallo al conectarse a mongodb "+errorConexion)
+#Conexion con la base de datos de mongo
+myClient = mongo.MongoClient("mongodb://localhost:27017/")
+myTest = myClient["test"]
+myTweets = myTest["tweets"]
 
+#Creacion del campo codigo  
+myTweets.update_many({},{"$set" : {"codigo":"null"}}) 
+myTweets.update_many({},{"$set" : {"pais":"null"}}) 
 
-conectMongoDB()
+try:
+	#Conexion con postgres
+	con = psycopg2.connect(database = 'world', user = 'postgres', host = 'localhost', password = '1327')
+	cursor = con.cursor()
+	
+	#Almacenamiento de los datos de las tablas de world en variables
+	countryTable = "select name, code, localname, population from country order by population;"	
+	cursor.execute(countryTable)
+	country = cursor.fetchall()
+	
+	cityTable = "select city.name, city.countrycode, country.name from city inner join country on city.countrycode = country.code;"
+	cursor.execute(cityTable)
+	city = cursor.fetchall()
+	
+	for location in myTweets.find({},{"user.location":1, "codigo":1, "_id":0}):
+		codigo = " "
+		pais = " "
+		estado = False
+		localizacion = location.get('user').get('location')
 
-# Agregar un nuevo campo en la coleccion:
-# db.vehiculos.update({},{$set:{"activo":"si"}},{upsert:false,multi:true})
-# db.tweets.find({},{_id:1, "user.location":1}).limit(10);
+		if(localizacion != None):
+			if ('NY' in localizacion or 'U.S.A' in localizacion or 'Arizona' in localizacion  or 'TX' in localizacion or 'Florida' in localizacion or 'Texas' in localizacion):
+				estado = True
+				codigo = 'USA'
+				pais = 'United States'
+			elif ('CABA' in localizacion or 'Buenos Aire' in localizacion or 'BS.AS' in localizacion):
+				estado = True
+				codigo = 'ARG'
+				pais = 'Argentina'
+			elif (estado == False):
+				for row in country:		
+					if (row[0] in localizacion and estado == False):
+						estado = True
+						codigo = row[1]
+						pais = row[0]
+						break
+					elif (row[1] in localizacion and estado == False):
+						estado = True
+						codigo = row[1]
+						pais = row[0]
+						break
+					elif (row[2] in localizacion and estado == False):
+						estado = True
+						codigo = row[1]
+						pais = row[0]
+						break
+						
+				if (estado == False):
+					for fila in city:		
+						if (fila[0] in localizacion):
+							estado = True
+							codigo = fila[1]
+							pais = fila[2]
+
+		valores = { "$set": { "codigo": codigo, "pais": pais } }
+		myTweets.update_many({"user.location" : localizacion}, valores)
+
+	for location in myTweets.find({},{"user.location":1, "codigo":1, "pais":1, "_id":0}):
+		print (location)
+
+#Excepcion de error
+except (Exception, psycopg2.Error) as error:
+    print ("Error al cargar los datos", error)
+finally:
+	# cerrando conexion con la base de datos
+	if (con):
+		cursor.close()
+		con.close()
