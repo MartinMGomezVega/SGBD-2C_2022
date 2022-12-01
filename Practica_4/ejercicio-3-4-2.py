@@ -3,7 +3,7 @@ from geopandas import GeoDataFrame
 import pymongo as mongo
 
 #Mapa vacio
-mapa = GeoDataFrame.from_file('ne_10m_admin_0_countries.shp')
+mapa = GeoDataFrame.from_file('Practica_4/ne_10m_admin_0_countries.shp')
 
 #Conexion con mongo
 MONGO_HOST="localhost"
@@ -26,5 +26,5 @@ for location in MONGO_COLECCION.aggregate([{"$group":{"_id":{"codigo":"$codigo",
 	mapa.loc[mapa['NAME'] == paisWorld, 'escala'] = i
 	i = i + 1
 
-mapa.plot(column='escala', colormap='Reds', alpha=1, categorical=False, legend=False, axes=None)
+mapa.plot(cmap='Reds', alpha=1, categorical=False, legend=False, ax=None)
 plt.show()
