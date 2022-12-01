@@ -1,38 +1,30 @@
-# Determinar el origen de los usuarios basandose en: el campo “user.location” y la base de datos “world” de la pr´actica 3.
-# Agregar un campo nuevo en cada “document” que explicite el pa´ıs de origen del usuario. Una idea ser´ıa hacer chequeos
-# incrementales que se ejecuten secuencialmente, por ejemplo:
-# Si el campo “user.location” contiene un nombre de pa´ıs, considero ese como pa´ıs del usuario
-# Los usuarios de EEUU muchas veces escriben su ubicaci´on de forma “Ciudad,Estado” (ej.: “Washington, DC”).
-# En ese caso hay que matchear el estado y si es v´alido hay que colocar “us” como pa´ıs
-# etc.
+import matplotlib.pyplot as plt
+from geopandas import GeoDataFrame
+import pymongo as mongo
 
-import pymongo
+#Mapa vacio
+mapa = GeoDataFrame.from_file('ne_10m_admin_0_countries.shp')
 
-def conectMongoDB():
-    MONGO_HOST="localhost"
-    MONGO_PUERTO="27017"
-    MONGO_TIEMPO_FUERA=1000
-    MONGO_URI="mongodb://"+MONGO_HOST+":"+MONGO_PUERTO+"/"
-    MONGO_BASEDATOS="test"
-    MONGO_COLECCION="tweets"
+#Conexion con mongo
+MONGO_HOST="localhost"
+MONGO_PUERTO="27017"
+MONGO_URI="mongodb://"+MONGO_HOST+":"+MONGO_PUERTO+"/"
+conexionMongo = mongo.MongoClient(MONGO_URI)
+MONGO_BASEDATOS = conexionMongo["test"]
+MONGO_COLECCION = MONGO_BASEDATOS["tweets"]
 
-    try:
-        cliente=pymongo.MongoClient(MONGO_URI,serverSelectionTimeoutMS=MONGO_TIEMPO_FUERA)
-        baseDatos=cliente[MONGO_BASEDATOS]
-        coleccion=baseDatos[MONGO_COLECCION]
-        for documento in coleccion.find("user.").limit(3):
-            print(documento["id"])
-        #cliente.server_info()
-        #print("Coneccion a mongo exitosa")
-        cliente.close()
-    except pymongo.errors.ServerSelectionTimeoutError as errorTiempo:
-        print("Tiempo exedido "+errorTiempo)
-    except pymongo.errors.ConnectionFailure as errorConexion:
-        print("Fallo al conectarse a mongodb "+errorConexion)
+#Guardar los datos en el mapa
+i = 0
+for location in MONGO_COLECCION.aggregate([{"$group":{"_id":{"codigo":"$codigo","pais":"$pais"},"population":{"$sum":1}}},{ "$sort": {"population": -1}}]):
+	codigoWorld = location.get('_id').get('codigo')
+	paisWorld = location.get('_id').get('pais')
+	populationWorld = location.get('population')
 
+	mapa.loc[mapa['NAME'] == paisWorld, 'population'] = populationWorld
+	mapa.loc[mapa['SOV_A3'] == codigoWorld, 'population'] = populationWorld
+	mapa.loc[mapa['SOV_A3'] == codigoWorld, 'escala'] = i
+	mapa.loc[mapa['NAME'] == paisWorld, 'escala'] = i
+	i = i + 1
 
-conectMongoDB()
-
-# Agregar un nuevo campo en la coleccion:
-# db.vehiculos.update({},{$set:{"activo":"si"}},{upsert:false,multi:true})
-# db.tweets.find({},{_id:1, "user.location":1}).limit(10);
+mapa.plot(column='escala', colormap='Reds', alpha=1, categorical=False, legend=False, axes=None)
+plt.show()
