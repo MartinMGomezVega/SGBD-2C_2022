@@ -48,10 +48,6 @@ def obtenerTexto (pais):
     data = cnt.most_common(20)
     return data
 
-
-def text_size(total):
-    return total
-
 #Genera la nube de palabras que va a ser graficada
 def generarNube(pais):
     data = obtenerTexto(pais)

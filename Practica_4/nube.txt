@@ -1,187 +1,374 @@
-the
+el
 a
 an
-is
+es
 i
 o
 no
-be
-thy
+sea
+tu
 me
-my
-you
-your
-he
-him
-his
-she
-her
-it
-we
-us
-they
-them
-who
-which
-that
-and
-this
-with
-not
-yes
-how
-quietly
-peacefully
-carefully
-slowly
-badly
-closely
-easily
-well
-fast
-quickly
-cheerfully
-where
-above
-abroad
-far
-away
-back
-here
-outside
-backwards
-behind
-below
-down
-when
-now
-yesterday
-soon
-later
-tomorrow
-yet
-already
-tonight
-today
-then
-last
-much
-quite
-fairly
-too
-enormously
-entirely
-rather
-almost
-absolutely
-just
-often
-always
-sometimes
-often
-frequently
-normally
-generally
-usually
-occasionally
-seldom
-rarely
-never
-about
-above
-according
-to
-across
-after
-against
-along
-whit
-among
-apart
-from
-around
-as
-well
-aside
-because
-of
-before
-behind
-beneath
-beside
-between
-beyond
-by
-means
-way
-concerning
+mi
+tú
+tu
+él
+él
+su
+ella
+ella
+él
+nosotros
+nosotros
+ellos
+ellos
+que
+que
+que
+y
+este
+con
+no
+sí
+como
+tranquilamente
+tranquilamente
+cuidadosamente
+lentamente
+Malamente
+estrechamente
+fácilmente
+bien
+rápidamente
+rápidamente
+alegremente
+donde
+por encima de
+en el extranjero
+lejos
+lejos
+atrás
+aquí
+fuera
+hacia atrás
+detrás
+abajo
+abajo
+cuando
+ahora
+ayer
+pronto
+después
+mañana
+todavía
+ya
+esta noche
+hoy
+entonces
+último
+mucho
+bastante
+bastante
+también
+enormemente
+totalmente
+más bien
+casi
+absolutamente
+sólo
+a menudo
+siempre
+a veces
+a menudo
+frecuentemente
+normalmente
+generalmente
+normalmente
+ocasionalmente
+rara vez
+raramente
+nunca
+sobre
+sobre
+según
+a
+a través de
+después de
+contra
+a lo largo de
+con
+entre
+aparte
+de
+alrededor de
+como
+también
+aparte
+porque
+de
+antes de
+detrás de
+debajo de
+al lado de
+entre
+más allá de
+en
+mediante
+camino
+sobre
 depite
-due
-during
-except
-for
-excepting
-excluding
-following
-in
-addition
-case
-front
-place
-regard
-spite
-including
-inside
-into
-like
-near
-next
-of
+debido
+durante
+excepto
+para
+exceptuando
+excluyendo
+después de
+en
+además
+caso
+frente
+lugar
+respecto
+a pesar
+incluyendo
+dentro de
+en
+como
+cerca de
+siguiente
+de
+fuera de
+en
+cuenta
+en
+arriba
+fuera
+fuera
+sobre
+pasado
+con respecto a
+ronda
+desde
+a través de
+a través de
+hasta
+hacia
+bajo
+por debajo de
+a diferencia de
+hasta
+arriba
+en
+vía
+referencia
+en
+respeto
+sin
+así que
+lo que
+tu
+tú
+pero
+voluntad
+son
+soy
+tienen
+todo
+o
+hacer
+nuestro
+si
+a
+por qué
+en
+era
+eran
+su
+rt
+o
+a
+um
+é
+i
+o
+não
+ser
+seu
+eu
+meu
+você
+seu
+ele
+ele
+seu
+ela
+ela
+it
+nós
+nós
+eles
+eles
+quem
+que
+que
+e
+este
+com
+não
+sim
+como
+silenciosamente
+pacificamente
+cuidadosamente
+lentamente
+mal
+de perto
+facilmente
+bem
+rápido
+rapidamente
+alegremente
+onde
+acima
+no exterior
+longe
+fora
+voltar
+aqui
+fora
+para trás
+atrás de
+abaixo
+abaixo
+quando
+agora
+ontem
+em breve
+mais tarde
+amanhã
+ainda
+já
+hoje à noite
+hoje
+então
+último
+muito
+bastante
+razoavelmente
+também
+imensamente
+inteiramente
+bastante
+quase
+absolutamente
+apenas
+frequentemente
+sempre
+às vezes
+frequentemente
+frequentemente
+normalmente
+geralmente
+geralmente
+ocasionalmente
+raramente
+raramente
+nunca
+sobre
+acima
+de acordo com
+para
+em
+depois de
+contra
+ao longo de
+whit
+entre
+à parte
+de
+por volta de
+como
+bem
+à parte
+porque
+de
+antes de
+atrás de
+abaixo de
+ao lado de
+entre
+além de
+por
+significa
+caminho
+sobre
+depto
+devido
+durante
+exceto
+para
+exceto
+excluindo
+a seguir
+em
+adição
+caso
+frente
+lugar
+respeito
+apesar de
+incluindo
+dentro
+em
+como
+perto de
+próximo
+de
 off
-on
-account
-onto
-top
-out
-outside
-over
-past
-regarding
-round
-since
-through
-throughout
-till
-toward
-under
-underneath
-unlike
-until
-up
-upon
+em
+conta
+em
+topo
+fora
+fora
+sobre
+passado
+sobre
+rodada
+desde
+através de
+em
+até
+para
+em
+embaixo de
+ao contrário de
+até
+acima
+em
 via
-reference
-within
-respect
-without
-so
-what
-thee
-thou
-but
-will
-are
-am
-have
-all
-or
+referência
+dentro de
+respeito
+sem
+portanto
+o que
+te
+tu
+mas
+irá
+são
+sou
+ter
+todos
+ou
 do
-our
-if
-to
-why
-at
-was
-were
-their
+nosso
+se
+para
+por que
+em
+foi
+foram
+seu
 rt

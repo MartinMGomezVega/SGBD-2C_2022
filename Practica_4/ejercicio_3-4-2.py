@@ -16,6 +16,10 @@ conexionMongo = mongo.MongoClient(MONGO_URI)
 MONGO_BASEDATOS = conexionMongo["test"]
 MONGO_COLECCION = MONGO_BASEDATOS["tweets"]
 
+
+# ARREGLARLO!
+
+
 #Guardar los datos en el mapa
 i = 0
 for location in MONGO_COLECCION.aggregate([{"$group":{"_id":{"codigo":"$codigo","pais":"$pais"},"population":{"$sum":1}}},{ "$sort": {"population": -1}}]):
