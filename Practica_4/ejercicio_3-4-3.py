@@ -9,6 +9,7 @@ import collections
 from matplotlib import pyplot as plt
 import pymongo as mongo
 from wordcloud import WordCloud, STOPWORDS
+from googletrans import Translator
 
 #Conexion con la base de datos de mongo
 myClient = mongo.MongoClient("mongodb://localhost:27017/")
