@@ -22,13 +22,13 @@ MONGO_COLECCION = MONGO_BASEDATOS["tweets"]
 
 #Guardar los datos en el mapa
 i = 0
-for location in MONGO_COLECCION.aggregate([{"$group":{"_id":{"codigo":"$codigo","pais":"$pais"},"population":{"$sum":1}}},{ "$sort": {"population": -1}}]):
+for location in MONGO_COLECCION.aggregate([{"$group":{"_id":{"codigo":"$codigo","pais":"$pais"},"tweets":{"$sum":1}}},{ "$sort": {"tweets": -1}}]):
 	codigoWorld = location.get('_id').get('codigo')
 	paisWorld = location.get('_id').get('pais')
-	populationWorld = location.get('population')
+	tweetsWorld = location.get('tweets')
 
-	mapa.loc[mapa['NAME'] == paisWorld, 'population'] = populationWorld
-	mapa.loc[mapa['SOV_A3'] == codigoWorld, 'population'] = populationWorld
+	mapa.loc[mapa['NAME'] == paisWorld, 'tweets'] = tweetsWorld
+	mapa.loc[mapa['SOV_A3'] == codigoWorld, 'tweets'] = tweetsWorld
 	mapa.loc[mapa['SOV_A3'] == codigoWorld, 'escala'] = i
 	mapa.loc[mapa['NAME'] == paisWorld, 'escala'] = i
 	i = i + 1
