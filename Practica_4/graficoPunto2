@@ -1,0 +1,45 @@
+# En base al punto anterior, realizar un Mapa Choropleth que refleje por cada paıs la cantidad total de tweets vinculados
+# a usuarios de ese paıs
+
+import matplotlib.pyplot as plt
+from geopandas import GeoDataFrame
+import pymongo as mongo
+from pandas import DataFrame
+import plotly.express as px
+import pandas as pd
+import matplotlib.colors as colors
+
+# Mapa vacio
+mapa = GeoDataFrame.from_file('ne_10m_admin_0_countries.shp')
+
+# Conexion con mongo
+MONGO_HOST = "localhost"
+MONGO_PUERTO = "27017"
+MONGO_URI = "mongodb://"+MONGO_HOST+":"+MONGO_PUERTO+"/"
+conexionMongo = mongo.MongoClient(MONGO_URI)
+MONGO_BASEDATOS = conexionMongo["test"]
+MONGO_COLECCION = MONGO_BASEDATOS["tweets"]
+
+resultado = MONGO_COLECCION.aggregate([
+    {"$group" : 
+        {"_id" : "$user.codigo", 
+         "cantTweets" : {"$sum" : 1}}}, {"$sort" : {"cantTweets" : -1}}])
+
+result = list(resultado)
+print(result)
+
+
+
+c = pd.DataFrame(result, columns=["_id", "cantTweets"])
+
+min = c["cantTweets"].min()
+max = c["cantTweets"].max()
+
+
+word = GeoDataFrame.from_file("ne_10m_admin_0_countries.shp")
+
+mi = pd.merge(left=word, right=c, left_on='ADM0_A3', right_on='_id')
+
+mi.plot(column='cantTweets', colormap='Greens', alpha=0.5, categorical=False, legend=True, axes=None, norm=colors.LogNorm(vmin=min, vmax=max))
+
+plt.show()
